@@ -42,7 +42,7 @@
 | `Config.MinimumGrades` | 免除に必要な最低グレード（例: `['police'] = 2`） |
 | `Config.FacilityTypes` | 施設タイプの定義（ラベル、アイコン、制限レベル、ブリップ、メッセージ） |
 | `Config.SafeZones` | セーフゾーンの一覧 |
-| `Config.WeaponControl` | 強制収納の ON/OFF と通知クールダウン |
+| `Config.WeaponControl` | `forceHolster`: 入場時・ジョブ変更時の強制収納の ON/OFF（下記の補足参照）。`holsterCooldown` は現在使われていません |
 | `Config.CommonMessages` | 免除時の通知など共通メッセージ |
 | `Config.Controls` | 無効化する攻撃・武器選択のコントロール番号 |
 
@@ -80,4 +80,6 @@ Config.SafeZones = {
 ## 補足
 
 - ブリップは `Config.Debug = true` かつそのゾーンの `debug = true` のときだけ表示されます。本番では `false` のままにしてください。
+- `forceHolster = false` にしても、`strict` ゾーン内で武器を持った時点の自動収納は止まりません（止まるのは入場時・ジョブ変更時の収納だけです）。
+- 武器警告通知のクールダウンは `client.lua` 内で 2000 ミリ秒に固定されており、`holsterCooldown` の値は反映されません。
 - `strict` の武器収納は `ox_inventory` の `disarm` → ネイティブによる収納の順で試行します。1 秒後もまだ武器を持っている場合は、最終手段としてペッドの武器をすべて削除します。
